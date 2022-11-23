@@ -1,0 +1,14 @@
+version: "3.7"
+
+volumes:
+  database-data:
+
+services:
+  database:
+    image: postgres:14.4 
+    restart: always  # restart defines the policy that the platform will apply on container termination.
+    env_file: .env
+    ports: # Short syntax
+      - ${LOCAL_DATABASE_PORT}:${LOCAL_DATABASE_PORT}
+    volumes: # On Service level it can be only used by database service
+    - database-data:/var/lib/postgresql/data
