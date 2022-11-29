@@ -32,19 +32,17 @@ type PersonInputAddress struct {
 	PostalCode int
 }
 
-var ErrInvalidInput = errors.New("Invalid input")
-
 func ValidadeInput(input PersonInput) error {
 	if input.Age < 0 {
-		panic("Person age can not be negative")
+		return errors.New("Invalid age")
 	}
 
 	if input.Address.Number < 0 {
-		panic("Address number can not be negative")
+		return errors.New("Invalid person address number")
 	}
 
 	if input.Address.PostalCode < 0 {
-		panic("Postal code can not be negative")
+		return errors.New("Invalid person postal code")
 	}
 
 	return nil

@@ -61,13 +61,18 @@ func (s Server) PostPerson(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		w.WriteHeader(422)
-		if err := json.NewEncoder(w).Encode(err); err != nil {
+		msgErr := ErrorResponse{MsgError: err.Error()}
+		if err := json.NewEncoder(w).Encode(msgErr); err != nil {
+			panic(err)
+		}
+	} else {
+		w.WriteHeader(http.StatusCreated)
+		if err := json.NewEncoder(w).Encode(inputPerson); err != nil {
 			panic(err)
 		}
 	}
+}
 
-	w.WriteHeader(http.StatusCreated)
-	if err := json.NewEncoder(w).Encode(inputPerson); err != nil {
-		panic(err)
-	}
+type ErrorResponse struct {
+	MsgError string `json:"message"`
 }

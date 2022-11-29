@@ -19,6 +19,6 @@ func (s Server) Run() {
 	rotas.HandleFunc("/", GetPerson).Methods("GET")
 	rotas.HandleFunc("/persons", s.PostPerson).Methods("POST")
 	var port = ":3000"
-	fmt.Println("Server running in port:", port)
+	fmt.Println("Server running in port", port)
 	log.Fatal(http.ListenAndServe(port, rotas))
 }
